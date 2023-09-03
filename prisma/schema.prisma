@@ -17,9 +17,66 @@ model User {
   contactNo  String?
   address    String?
   profileImg String?
+  reviewAndRatings ReviewAndRating[]
+  Orders Order[]
 }
 
 enum UserRole {
   admin
   customer
+}
+
+// Category Model
+ model Category{
+  id String   @id @default(uuid())
+  title String
+  books Book[]
+ }
+
+// Book Model
+model Book {
+  id String @id @default(uuid())
+  title String
+  author String
+  price Float
+  genre String
+  publicationDate DateTime
+  categoryId String
+  category Category @relation(fields: [categoryId],references: [id])
+  ReviewAndRatings ReviewAndRating[]
+}
+
+// Review Models
+model ReviewAndRating{
+id String @id @default(uuid())
+review String
+rating Int
+userId String
+user User @relation(fields: [userId],references: [id])
+bookId String
+book Book @relation(fields: [bookId],references: [id])
+
+}
+
+
+// Order Model
+model Order {
+  id String @id @default(uuid())
+  userId String
+ user User @relation(fields: [userId],references: [id])
+ orderedBooks OrderedBook[]
+ status  OrderStatus
+ creaatedAt DateTime
+}
+model OrderedBook {
+  id       String @id @default(uuid())
+  orderId  String
+  order    Order  @relation(fields: [orderId], references: [id])
+  bookId   String
+  quantity Int
+}
+enum OrderStatus {
+pending
+shipped
+delivered
 }
