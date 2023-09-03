@@ -1,13 +1,11 @@
 import cors from "cors";
-import express from "express";
+import express, { Application } from "express";
+import { UserRoutes } from "./modules/User/user.route";
 
-const app = express();
+const app: Application = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", (req, res) => {
-  res.send("Hello Your Book stacker backend Server is running! YAY!🧑‍💻🧑‍💻");
-});
-
+app.use("/api/v1", UserRoutes);
 export default app;
