@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserService } from "./user.service";
 
+// Creating a user
 const createUser = async (req: Request, res: Response) => {
   console.log(req.body);
   try {
@@ -9,6 +10,21 @@ const createUser = async (req: Request, res: Response) => {
       status: "true",
       statusCode: 200,
       message: " User created Successfully!",
+      data: data,
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+// Login a user
+const loginUser = async (req: Request, res: Response) => {
+  try {
+    const data = await UserService.loginUser(req.body);
+    res.send({
+      status: "true",
+      statusCode: 200,
+      message: "User login Successfully!",
       data: data,
     });
   } catch (error) {
@@ -76,6 +92,7 @@ const deleteSingleUser = async (req: Request, res: Response) => {
 };
 export const UserController = {
   createUser,
+  loginUser,
   getAllUsers,
   getSingleUsers,
   updateSingleUser,
