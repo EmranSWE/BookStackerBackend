@@ -60,29 +60,39 @@ const getSingleBookByCategory = async (id: any) => {
   return result;
 };
 
-// // Update Single  User from DB
-// const updateSingleUser = async (id: any, data: any): Promise<User> => {
-//   console.log("update", id, data);
-//   const result = await prisma.user.update({
-//     where: {
-//       id: id,
-//     },
-//     data: data,
-//   });
-//   return result;
-// };
+const getSingleBook = async (id: any) => {
+  const result = await prisma.book.findFirst({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
+// Update Single  User from DB
+const updateSingleBook = async (id: any, data: any): Promise<Book> => {
+  const result = await prisma.book.update({
+    where: {
+      id: id,
+    },
+    data: data,
+  });
+  return result;
+};
 
-// // Delete Single  User from DB
-// const deleteSingleUser = async (id: any): Promise<User> => {
-//   const result = await prisma.user.delete({
-//     where: {
-//       id: id,
-//     },
-//   });
-//   return result;
-// };
+// Delete Single  User from DB
+const deleteABook = async (id: any): Promise<Book> => {
+  const result = await prisma.book.delete({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
 export const BookService = {
   createBook,
   getAllBooks,
   getSingleBookByCategory,
+  getSingleBook,
+  updateSingleBook,
+  deleteABook,
 };
