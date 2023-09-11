@@ -1,4 +1,5 @@
-import { Book, PrismaClient, User } from "@prisma/client";
+import { Book, Prisma, PrismaClient, User } from "@prisma/client";
+import { FilterOptions } from "./books.interface";
 const prisma = new PrismaClient();
 
 const createBook = async (data: Book): Promise<Book> => {
@@ -11,21 +12,53 @@ const createBook = async (data: Book): Promise<Book> => {
   return result;
 };
 
-// // Get all Users from DB
-// const getAllUser = async () => {
-//   const result = await prisma.user.findMany();
-//   return result;
-// };
+const getAllBooks = async (options: FilterOptions) => {
+  const page = options.page || 1;
+  console.log(options);
+  const size = 10;
+  const sortBy = options.sortBy || "title";
+  const sortOrder = options.sortOrder || "asc";
 
-// // Get Single  User from DB
-// const getSingleUser = async (id: any) => {
-//   const result = await prisma.user.findFirst({
-//     where: {
-//       id: id,
-//     },
-//   });
-//   return result;
-// };
+  const skip = (page - 1) * size;
+  let where: any = {};
+
+  if (options.minPrice !== undefined) {
+    where.price = {
+      ...where.price,
+      gte: options.minPrice,
+    };
+  }
+
+  const totalBooks = await prisma.book.count();
+  const totalPages = Math.ceil(totalBooks / size);
+  const books = await prisma.book.findMany({
+    where: where,
+    skip: skip,
+    take: size,
+    orderBy: {
+      [sortBy]: sortOrder,
+    },
+  });
+
+  return {
+    page: page,
+    size: size,
+    total: totalBooks,
+    totalPages: totalPages,
+    data: books,
+  };
+};
+
+// Get Single  User from DB
+const getSingleBookByCategory = async (id: any) => {
+  console.log(id);
+  const result = await prisma.book.findMany({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
 
 // // Update Single  User from DB
 // const updateSingleUser = async (id: any, data: any): Promise<User> => {
@@ -50,4 +83,6 @@ const createBook = async (data: Book): Promise<Book> => {
 // };
 export const BookService = {
   createBook,
+  getAllBooks,
+  getSingleBookByCategory,
 };
