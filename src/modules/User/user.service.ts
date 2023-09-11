@@ -69,6 +69,7 @@ const loginUser = async (data: User) => {
   );
   return { accessToken, refreshToken };
 };
+
 // Get all Users from DB
 const getAllUser = async () => {
   const result = await prisma.user.findMany();
