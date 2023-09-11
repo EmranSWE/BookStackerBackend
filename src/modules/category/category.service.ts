@@ -1,24 +1,22 @@
-import { Book, PrismaClient, User } from "@prisma/client";
+import { Book, Category, PrismaClient, User } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const createCategory = async (data: Book): Promise<Book> => {
-  console.log("Service at Category:", data);
-  const result = await prisma.book.create({
+const createCategory = async (data: Category): Promise<Category> => {
+  const result = await prisma.category.create({
     data: data,
   });
-
   return result;
 };
 
 // Get all Users from DB
-const getAllUser = async () => {
-  const result = await prisma.user.findMany();
+const getAllCategory = async () => {
+  const result = await prisma.category.findMany();
   return result;
 };
 
 // Get Single  User from DB
-const getSingleUser = async (id: any) => {
-  const result = await prisma.user.findFirst({
+const getSingleCategory = async (id: any) => {
+  const result = await prisma.category.findFirst({
     where: {
       id: id,
     },
@@ -27,9 +25,9 @@ const getSingleUser = async (id: any) => {
 };
 
 // Update Single  User from DB
-const updateSingleUser = async (id: any, data: any): Promise<User> => {
+const updateSingleUser = async (id: any, data: any): Promise<Category> => {
   console.log("update", id, data);
-  const result = await prisma.user.update({
+  const result = await prisma.category.update({
     where: {
       id: id,
     },
@@ -39,8 +37,8 @@ const updateSingleUser = async (id: any, data: any): Promise<User> => {
 };
 
 // Delete Single  User from DB
-const deleteSingleUser = async (id: any): Promise<User> => {
-  const result = await prisma.user.delete({
+const deleteCategories = async (id: any): Promise<Category> => {
+  const result = await prisma.category.delete({
     where: {
       id: id,
     },
@@ -49,8 +47,8 @@ const deleteSingleUser = async (id: any): Promise<User> => {
 };
 export const CategoryService = {
   createCategory,
-  getAllUser,
-  getSingleUser,
+  getAllCategory,
+  getSingleCategory,
   updateSingleUser,
-  deleteSingleUser,
+  deleteCategories,
 };

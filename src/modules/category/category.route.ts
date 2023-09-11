@@ -2,12 +2,10 @@ import express from "express";
 import { CategoryController } from "./category.controller";
 const router = express.Router();
 
-// router.get("/users", BookController.getAllUsers);
-// router.patch("/users/:id", BookController.updateSingleUser);
+router.get("/categories", CategoryController.getAllCategory);
+router.get("/categories/:id", CategoryController.getSingleCategory);
 router.post("/categories/create-category", CategoryController.createCategory);
-// router.post("/auth/signin", BookController.loginUser);
-
-// router.get("/users/:id", UserController.getSingleUsers);
-// router.delete("/users/:id", UserController.deleteSingleUser);
+router.patch("/categories/:id", CategoryController.updateSingleCategory);
+router.delete("/categories/:id", CategoryController.deleteCategories);
 
 export const CategoryRoutes = router;
