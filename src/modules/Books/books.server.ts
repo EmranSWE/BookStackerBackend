@@ -50,14 +50,25 @@ const getAllBooks = async (options: FilterOptions) => {
 };
 
 // Get Single  User from DB
-const getSingleBookByCategory = async (id: any) => {
-  console.log(id);
-  const result = await prisma.book.findMany({
+const getSingleBookByCategory = async (id: any, page: Number, size: Number) => {
+  const totalBooksInCategory = await prisma.book.count({
     where: {
-      id: id,
+      categoryId: id,
     },
   });
-  return result;
+  const result = await prisma.book.findMany({
+    where: {
+      categoryId: id,
+    },
+  });
+  return {
+    meta: {
+      page: page,
+      size: size,
+      total: totalBooksInCategory,
+    },
+    data: result,
+  };
 };
 
 const getSingleBook = async (id: any) => {

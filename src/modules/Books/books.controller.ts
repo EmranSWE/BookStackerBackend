@@ -18,7 +18,6 @@ const createBook = async (req: Request, res: Response) => {
 
 //Get all user
 const getAllBooks = async (req: Request, res: Response) => {
-  //   console.log("Get All books", req.query.page);
   try {
     const data = await BookService.getAllBooks(req.query);
     res.send({
@@ -34,7 +33,21 @@ const getAllBooks = async (req: Request, res: Response) => {
 
 const getSingleBookByCategory = async (req: Request, res: Response) => {
   try {
-    const data = await BookService.getSingleBookByCategory(req.params.id);
+    const page =
+      req.query.page && typeof req.query.page === "string"
+        ? parseInt(req.query.page)
+        : 1;
+
+    const size =
+      req.query.size && typeof req.query.size === "string"
+        ? parseInt(req.query.size)
+        : 10;
+    const categoryId = req.params.categoryId;
+    const data = await BookService.getSingleBookByCategory(
+      categoryId,
+      page,
+      size
+    );
     res.send({
       status: "true",
       statusCode: 200,
