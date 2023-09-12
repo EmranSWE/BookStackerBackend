@@ -31,34 +31,37 @@ const createOrder = async (data: OrderData) => {
 };
 
 // Get all Users from DB
-// const getAllOrders = async () => {
-//   const result = await prisma.category.findMany();
-//   return result;
-// };
+const getAllOrders = async () => {
+  const result = await prisma.order.findMany();
+  return result;
+};
 
-// // Get Single  User from DB
-// const getSingleOrders = async (id: any) => {
-//   const result = await prisma.category.findFirst({
-//     where: {
-//       id: id,
-//     },
-//   });
-//   return result;
-// };
+// Get Single Orders from DB
+const getSingleOrders = async (id: any) => {
+  console.log("single user id", id);
+  const result = await prisma.order.findMany({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
 
-// // Get Single  User from DB
-// const Orders = async (id: any) => {
-//   const result = await prisma.category.findFirst({
-//     where: {
-//       id: id,
-//     },
-//   });
-//   return result;
-// };
+// Get Single  Orders from DB
+const Orders = async (id: any) => {
+  console.log("order service", id);
+
+  const result = await prisma.order.findMany({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
 
 export const OrderService = {
   createOrder,
-  // getAllOrders,
-  // getSingleOrders,
-  // Orders,
+  getAllOrders,
+  getSingleOrders,
+  Orders,
 };

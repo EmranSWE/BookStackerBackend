@@ -37,6 +37,7 @@ const loginUser = async (data: User) => {
       email: true,
       password: true,
       role: true,
+      id: true,
     },
   });
   if (!isUserExist) {
@@ -58,6 +59,7 @@ const loginUser = async (data: User) => {
   const accessToken = jwt.sign(
     {
       email: isUserExist?.email,
+      userId: isUserExist?.id,
       role: isUserExist.role,
     },
     process.env.JWT_SECRET as Secret,
@@ -96,6 +98,15 @@ const getSingleUser = async (id: any) => {
   return result;
 };
 
+const getProfile = async (id: any) => {
+  const result = await prisma.user.findFirst({
+    where: {
+      id: id,
+    },
+  });
+  return result;
+};
+
 // Update Single  User from DB
 const updateSingleUser = async (id: any, data: any): Promise<User> => {
   console.log("update", id, data);
@@ -125,4 +136,5 @@ export const UserService = {
   getSingleUser,
   updateSingleUser,
   deleteSingleUser,
+  getProfile,
 };

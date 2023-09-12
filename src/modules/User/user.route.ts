@@ -5,6 +5,12 @@ import { AuthService } from "../auth/authentication";
 const router = express.Router();
 
 router.get(
+  "/profile",
+  AuthService.authenticateJWT,
+  AuthService.authorizeAdmin,
+  UserController.getProfile
+);
+router.get(
   "/users",
   AuthService.authenticateJWT,
   AuthService.authorizeAdmin,

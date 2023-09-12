@@ -9,9 +9,24 @@ router.post(
   AuthService.authorizeCustomer,
   OrderController.createOrder
 );
-// router.get("/orders", OrderController.getAllOrders);
-// router.get("/orders/:id", OrderController.getSingleOrders);
-// router.patch("/orders/:orderId", OrderController.Orders);
+router.get(
+  "/orders",
+  AuthService.authenticateJWT,
+  AuthService.authorizeAdmin,
+  OrderController.getAllOrders
+);
+router.get(
+  "/orders",
+  AuthService.authenticateJWT,
+  AuthService.authorizeCustomer,
+  OrderController.getSingleOrders
+);
+router.get(
+  "/orders/:orderId",
+  AuthService.authenticateJWT,
+  AuthService.authorizeCustomer,
+  OrderController.Orders
+);
 // router.delete("/profile/", CategoryController.deleteCategories);
 
 export const OrdersRoutes = router;

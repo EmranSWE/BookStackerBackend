@@ -72,6 +72,20 @@ const getSingleUsers = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(error);
     }
 });
+const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield user_service_1.UserService.getProfile(req.params.id);
+        res.send({
+            status: "true",
+            statusCode: 200,
+            message: "Users profile gets successfully!",
+            data: data,
+        });
+    }
+    catch (error) {
+        res.send(error);
+    }
+});
 const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.params.id);
     try {
@@ -108,4 +122,5 @@ exports.UserController = {
     getSingleUsers,
     updateSingleUser,
     deleteSingleUser,
+    getProfile,
 };

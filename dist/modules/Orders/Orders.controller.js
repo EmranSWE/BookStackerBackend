@@ -14,7 +14,6 @@ const Orders_server_1 = require("./Orders.server");
 // Creating a category
 const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("orders", req.body);
         const data = yield Orders_server_1.OrderService.createOrder(req.body);
         res.send({
             status: "true",
@@ -27,14 +26,14 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(error);
     }
 });
-//Get all category
+// Get all category
 const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield Orders_server_1.OrderService.getAllOrders();
         res.send({
             status: "true",
             statusCode: 200,
-            message: "Category retrieved successfully!",
+            message: "Orders retrieved successfully!",
             data: data,
         });
     }
@@ -44,11 +43,11 @@ const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 const getSingleOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield Orders_server_1.OrderService.getSingleOrders(req.params.id);
+        const data = yield Orders_server_1.OrderService.getSingleOrders(req.body);
         res.send({
             status: "true",
             statusCode: 200,
-            message: "Category fetched successfully",
+            message: "Order fetched successfully",
             data: data,
         });
     }
@@ -58,11 +57,11 @@ const getSingleOrders = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 const Orders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield Orders_server_1.OrderService.Orders(req.params.id);
+        const data = yield Orders_server_1.OrderService.Orders(req.params.orderId);
         res.send({
             status: "true",
             statusCode: 200,
-            message: "Category fetched successfully",
+            message: "Specific orders fetched successfully",
             data: data,
         });
     }

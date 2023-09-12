@@ -45,6 +45,7 @@ const loginUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
             email: true,
             password: true,
             role: true,
+            id: true,
         },
     });
     if (!isUserExist) {
@@ -59,6 +60,7 @@ const loginUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
     //Create refresh token
     const accessToken = jsonwebtoken_1.default.sign({
         email: isUserExist === null || isUserExist === void 0 ? void 0 : isUserExist.email,
+        userId: isUserExist === null || isUserExist === void 0 ? void 0 : isUserExist.id,
         role: isUserExist.role,
     }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
@@ -79,6 +81,14 @@ const getAllUser = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 // Get Single  User from DB
 const getSingleUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma.user.findFirst({
+        where: {
+            id: id,
+        },
+    });
+    return result;
+});
+const getProfile = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma.user.findFirst({
         where: {
             id: id,
@@ -113,4 +123,5 @@ exports.UserService = {
     getSingleUser,
     updateSingleUser,
     deleteSingleUser,
+    getProfile,
 };

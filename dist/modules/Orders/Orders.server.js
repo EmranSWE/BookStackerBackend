@@ -13,28 +13,38 @@ exports.OrderService = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const createOrder = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma.order.create({
-        data: data,
-    });
-    return result;
+    try {
+        console.log("Creating order with data:", data);
+        const result = yield prisma.order.create({
+            data: Object.assign({}, data),
+        });
+        console.log("Order successfully created:", result);
+        return result;
+    }
+    catch (error) {
+        console.error("Error creating order:", error);
+        throw error;
+    }
 });
 // Get all Users from DB
 const getAllOrders = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma.category.findMany();
+    const result = yield prisma.order.findMany();
     return result;
 });
-// Get Single  User from DB
+// Get Single Orders from DB
 const getSingleOrders = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma.category.findFirst({
+    console.log("single user id", id);
+    const result = yield prisma.order.findMany({
         where: {
             id: id,
         },
     });
     return result;
 });
-// Get Single  User from DB
+// Get Single  Orders from DB
 const Orders = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma.category.findFirst({
+    console.log("order service", id);
+    const result = yield prisma.order.findMany({
         where: {
             id: id,
         },

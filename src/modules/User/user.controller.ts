@@ -62,6 +62,19 @@ const getSingleUsers = async (req: Request, res: Response) => {
   }
 };
 
+const getProfile = async (req: Request, res: Response) => {
+  try {
+    const data = await UserService.getProfile(req.params.id);
+    res.send({
+      status: "true",
+      statusCode: 200,
+      message: "Users profile gets successfully!",
+      data: data,
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
 const updateSingleUser = async (req: Request, res: Response) => {
   console.log(req.params.id);
   try {
@@ -97,4 +110,5 @@ export const UserController = {
   getSingleUsers,
   updateSingleUser,
   deleteSingleUser,
+  getProfile,
 };

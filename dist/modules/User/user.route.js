@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("./user.controller");
 const authentication_1 = require("../auth/authentication");
 const router = express_1.default.Router();
+router.get("/profile", authentication_1.AuthService.authenticateJWT, authentication_1.AuthService.authorizeAdmin, user_controller_1.UserController.getProfile);
 router.get("/users", authentication_1.AuthService.authenticateJWT, authentication_1.AuthService.authorizeAdmin, user_controller_1.UserController.getAllUsers);
 router.patch("/users/:id", authentication_1.AuthService.authenticateJWT, authentication_1.AuthService.authorizeAdmin, user_controller_1.UserController.updateSingleUser);
 router.post("/auth/signup", user_controller_1.UserController.createUser);
