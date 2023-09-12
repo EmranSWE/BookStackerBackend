@@ -3,11 +3,7 @@ import { CategoryController } from "./category.controller";
 import { AuthService } from "../auth/authentication";
 const router = express.Router();
 
-router.get(
-  "/categories",
-
-  CategoryController.getAllCategory
-);
+router.get("/categories", CategoryController.getAllCategory);
 router.get("/categories/:id", CategoryController.getSingleCategory);
 router.post(
   "/categories/create-category",

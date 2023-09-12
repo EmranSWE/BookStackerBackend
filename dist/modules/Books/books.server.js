@@ -51,14 +51,25 @@ const getAllBooks = (options) => __awaiter(void 0, void 0, void 0, function* () 
     };
 });
 // Get Single  User from DB
-const getSingleBookByCategory = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(id);
-    const result = yield prisma.book.findMany({
+const getSingleBookByCategory = (id, page, size) => __awaiter(void 0, void 0, void 0, function* () {
+    const totalBooksInCategory = yield prisma.book.count({
         where: {
-            id: id,
+            categoryId: id,
         },
     });
-    return result;
+    const result = yield prisma.book.findMany({
+        where: {
+            categoryId: id,
+        },
+    });
+    return {
+        meta: {
+            page: page,
+            size: size,
+            total: totalBooksInCategory,
+        },
+        data: result,
+    };
 });
 const getSingleBook = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma.book.findFirst({

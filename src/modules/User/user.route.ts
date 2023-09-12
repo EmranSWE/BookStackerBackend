@@ -1,7 +1,6 @@
 import express from "express";
 import { UserController } from "./user.controller";
 import { ENUM_USER_ROLE } from "../../enums/user";
-import { UserService } from "./user.service";
 import { AuthService } from "../auth/authentication";
 const router = express.Router();
 

@@ -31,7 +31,16 @@ const authorizeAdmin = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+const authorizeCustomer = (req: Request, res: Response, next: NextFunction) => {
+  if (req.user.role !== "customer") {
+    return res
+      .status(403)
+      .json({ success: false, message: "Access forbidden: Customer only" });
+  }
+  next();
+};
 export const AuthService = {
   authenticateJWT,
   authorizeAdmin,
+  authorizeCustomer,
 };

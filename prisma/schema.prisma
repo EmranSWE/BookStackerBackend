@@ -60,23 +60,38 @@ book Book @relation(fields: [bookId],references: [id])
 
 
 // Order Model
+// model Order {
+//   id String @id @default(uuid())
+//   userId String
+//  user User @relation(fields: [userId],references: [id])
+//  orderedBooks OrderedBook[]
+//  status  OrderStatus
+//  createdAt DateTime
+// }
+// model OrderedBook {
+//   id       String @id @default(uuid())
+//   orderId  String
+//   order    Order  @relation(fields: [orderId], references: [id])
+//   bookId   String
+//   quantity Int
+// }
+// enum OrderStatus {
+// pending
+// shipped
+// delivered
+// }
+
 model Order {
-  id String @id @default(uuid())
+  id  String @id @default(uuid())
   userId String
- user User @relation(fields: [userId],references: [id])
- orderedBooks OrderedBook[]
- status  OrderStatus
- createdAt DateTime
+  user User @relation(fields: [userId],references: [id])
+  orderedBooks Json
+  status      OrderStatus @default(pending)
+  createdAt   DateTime @default(now())
 }
-model OrderedBook {
-  id       String @id @default(uuid())
-  orderId  String
-  order    Order  @relation(fields: [orderId], references: [id])
-  bookId   String
-  quantity Int
-}
+
 enum OrderStatus {
-pending
-shipped
-delivered
+  pending
+  shipped
+  delivered
 }

@@ -28,7 +28,6 @@ const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 //Get all user
 const getAllBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //   console.log("Get All books", req.query.page);
     try {
         const data = yield books_server_1.BookService.getAllBooks(req.query);
         res.send({
@@ -44,7 +43,14 @@ const getAllBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 const getSingleBookByCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield books_server_1.BookService.getSingleBookByCategory(req.params.id);
+        const page = req.query.page && typeof req.query.page === "string"
+            ? parseInt(req.query.page)
+            : 1;
+        const size = req.query.size && typeof req.query.size === "string"
+            ? parseInt(req.query.size)
+            : 10;
+        const categoryId = req.params.categoryId;
+        const data = yield books_server_1.BookService.getSingleBookByCategory(categoryId, page, size);
         res.send({
             status: "true",
             statusCode: 200,

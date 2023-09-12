@@ -24,6 +24,15 @@ const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const hashedPassword = yield bcrypt_1.default.hash(data.password, Number(round));
     const result = yield prisma.user.create({
         data: Object.assign(Object.assign({}, data), { password: hashedPassword }),
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            contactNo: true,
+            address: true,
+            profileImg: true,
+        },
     });
     return result;
 });
@@ -39,15 +48,14 @@ const loginUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
         },
     });
     if (!isUserExist) {
-        console.log("wronG pass or email");
+        console.log("Wrong pass or email");
         return console_1.error;
     }
     const isPasswordMatched = yield bcrypt_1.default.compare(password, isUserExist === null || isUserExist === void 0 ? void 0 : isUserExist.password);
     if (!isPasswordMatched) {
-        console.log("wronG pass");
+        console.log("Wrong password entered");
         return console_1.error;
     }
-    console.log(isUserExist);
     //Create refresh token
     const accessToken = jsonwebtoken_1.default.sign({
         email: isUserExist === null || isUserExist === void 0 ? void 0 : isUserExist.email,
