@@ -1,8 +1,8 @@
-import { Book, Category, PrismaClient, User } from "@prisma/client";
+import { Book, Category, Order, PrismaClient, User } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const createOrder = async (data: Category): Promise<Category> => {
-  const result = await prisma.category.create({
+const createOrder = async (data: Order) => {
+  const result = await prisma.order.create({
     data: data,
   });
   return result;

@@ -1,6 +1,6 @@
 # Book Catalog Backend (BookStackerBackend)
 
-## Live Link: https://example.com
+## Live Link: https://book-stacker-backend.vercel.app/
 
 Application Routes:
 
@@ -8,18 +8,18 @@ Application Routes:
 
 - https://book-stacker-backend.vercel.app/api/v1/auth/signup (POST)
 - https://book-stacker-backend.vercel.app/api/v1/users (GET)
-- https://book-stacker-backend.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
-- https://book-stacker-backend.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (PATCH)
-- https://book-stacker-backend.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+- https://book-stacker-backend.vercel.app/api/v1/users/26fb2bd4-7c48-492d-8799-a0aede900fe8 (Only admin), You can signup as admin first, then check
+- https://book-stacker-backend.vercel.app/api/v1/users/26fb2bd4-7c48-492d-8799-a0aede900fe8 (PATCH)(Only admin)
+- https://book-stacker-backend.vercel.app/api/v1/users/26fb2bd4-7c48-492d-8799-a0aede900fe8(DELETE) (Only admin)
 - https://book-stacker-backend.vercel.app/api/v1/profile (GET)
 
 ## Category
 
 - https://book-stacker-backend.vercel.app/api/v1/categories/create-category (POST)
 - https://book-stacker-backend.vercel.app/api/v1/categories (GET)
-- https://book-stacker-backend.vercel.app/api/v1/categories/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
-- https://book-stacker-backend.vercel.app/api/v1/categories/6177a5b87d32123f08d2f5d4 (PATCH)
-- https://book-stacker-backend.vercel.app/api/v1/categories/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+- https://book-stacker-backend.vercel.app/api/v1/categories/b3e862e3-274c-4037-93dc-c339c9fc5a9a (Single GET) (Only admin)
+- https://book-stacker-backend.vercel.app/api/v1/categories/b3e862e3-274c-4037-93dc-c339c9fc5a9a (PATCH)
+- https://book-stacker-backend.vercel.app/api/v1/categories/b3e862e3-274c-4037-93dc-c339c9fc5a9a (DELETE)
 
 ## Books
 

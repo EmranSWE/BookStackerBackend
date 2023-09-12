@@ -4,11 +4,12 @@ import { OrderService } from "./Orders.server";
 // Creating a category
 const createOrder = async (req: Request, res: Response) => {
   try {
+    console.log("orders", req.body);
     const data = await OrderService.createOrder(req.body);
     res.send({
       status: "true",
       statusCode: 200,
-      message: "Category created Successfully!",
+      message: "Order created Successfully!",
       data: data,
     });
   } catch (error) {
