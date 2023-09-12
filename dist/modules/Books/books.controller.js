@@ -9,32 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const user_service_1 = require("./user.service");
+exports.BookController = void 0;
+const books_server_1 = require("./books.server");
 // Creating a user
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
+const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield user_service_1.UserService.createUser(req.body);
+        const data = yield books_server_1.BookService.createBook(req.body);
         res.send({
             status: "true",
             statusCode: 200,
-            message: " User created Successfully!",
-            data: data,
-        });
-    }
-    catch (error) {
-        res.send(error);
-    }
-});
-// Login a user
-const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const data = yield user_service_1.UserService.loginUser(req.body);
-        res.send({
-            status: "true",
-            statusCode: 200,
-            message: "User login Successfully!",
+            message: "Book created Successfully!",
             data: data,
         });
     }
@@ -43,13 +27,14 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 //Get all user
-const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //   console.log("Get All books", req.query.page);
     try {
-        const data = yield user_service_1.UserService.getAllUser();
+        const data = yield books_server_1.BookService.getAllBooks(req.query);
         res.send({
             status: "true",
             statusCode: 200,
-            message: "Users retrieved successfully!",
+            message: "Books retrieved successfully!",
             data: data,
         });
     }
@@ -57,10 +42,9 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(error);
     }
 });
-const getSingleUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.params.id);
+const getSingleBookByCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield user_service_1.UserService.getSingleUser(req.params.id);
+        const data = yield books_server_1.BookService.getSingleBookByCategory(req.params.id);
         res.send({
             status: "true",
             statusCode: 200,
@@ -72,14 +56,28 @@ const getSingleUsers = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(error);
     }
 });
-const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getSingleBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield books_server_1.BookService.getSingleBook(req.params.id);
+        res.send({
+            status: "true",
+            statusCode: 200,
+            message: "Books fetched successfully!",
+            data: data,
+        });
+    }
+    catch (error) {
+        res.send(error);
+    }
+});
+const updateSingleBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.params.id);
     try {
-        const data = yield user_service_1.UserService.updateSingleUser(req.params.id, req.body);
+        const data = yield books_server_1.BookService.updateSingleBook(req.params.id, req.body);
         res.send({
             status: "true",
             statusCode: 200,
-            message: "Users update successfully!",
+            message: "Books update successfully!",
             data: data,
         });
     }
@@ -87,13 +85,13 @@ const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(error);
     }
 });
-const deleteSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteABook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield user_service_1.UserService.deleteSingleUser(req.params.id);
+        const data = yield books_server_1.BookService.deleteABook(req.params.id);
         res.send({
             status: "true",
             statusCode: 200,
-            message: "Users deleted successfully!",
+            message: "Books deleted successfully!",
             data: data,
         });
     }
@@ -101,11 +99,11 @@ const deleteSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(error);
     }
 });
-exports.UserController = {
-    createUser,
-    loginUser,
-    getAllUsers,
-    getSingleUsers,
-    updateSingleUser,
-    deleteSingleUser,
+exports.BookController = {
+    createBook,
+    getAllBooks,
+    getSingleBookByCategory,
+    getSingleBook,
+    updateSingleBook,
+    deleteABook,
 };

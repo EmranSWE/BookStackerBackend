@@ -2,15 +2,26 @@ import { PrismaClient, User } from "@prisma/client";
 import jwt, { Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { error } from "console";
+import { UserResponse } from "./user.interface";
 const prisma = new PrismaClient();
 const round = process.env.BCRYPT_SALT_ROUNDS;
+
 //Insert a new user to DB
-const createUser = async (data: User): Promise<User> => {
+const createUser = async (data: User): Promise<UserResponse> => {
   const hashedPassword = await bcrypt.hash(data.password, Number(round));
   const result = await prisma.user.create({
     data: {
       ...data,
       password: hashedPassword,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true,
     },
   });
 
@@ -29,7 +40,7 @@ const loginUser = async (data: User) => {
     },
   });
   if (!isUserExist) {
-    console.log("wronG pass or email");
+    console.log("Wrong pass or email");
     return error;
   }
 
@@ -39,10 +50,9 @@ const loginUser = async (data: User) => {
   );
 
   if (!isPasswordMatched) {
-    console.log("wronG pass");
+    console.log("Wrong password entered");
     return error;
   }
-  console.log(isUserExist);
 
   //Create refresh token
   const accessToken = jwt.sign(
@@ -107,6 +117,7 @@ const deleteSingleUser = async (id: any): Promise<User> => {
   });
   return result;
 };
+
 export const UserService = {
   createUser,
   loginUser,

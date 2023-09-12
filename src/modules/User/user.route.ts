@@ -1,14 +1,36 @@
 import express from "express";
 import { UserController } from "./user.controller";
 import { ENUM_USER_ROLE } from "../../enums/user";
+import { UserService } from "./user.service";
+import { AuthService } from "../auth/authentication";
 const router = express.Router();
 
-router.get("/users", UserController.getAllUsers);
-router.patch("/users/:id", UserController.updateSingleUser);
+router.get(
+  "/users",
+  AuthService.authenticateJWT,
+  AuthService.authorizeAdmin,
+  UserController.getAllUsers
+);
+router.patch(
+  "/users/:id",
+  AuthService.authenticateJWT,
+  AuthService.authorizeAdmin,
+  UserController.updateSingleUser
+);
 router.post("/auth/signup", UserController.createUser);
 router.post("/auth/signin", UserController.loginUser);
 
-router.get("/users/:id", UserController.getSingleUsers);
-router.delete("/users/:id", UserController.deleteSingleUser);
+router.get(
+  "/users/:id",
+  AuthService.authenticateJWT,
+  AuthService.authorizeAdmin,
+  UserController.getSingleUsers
+);
+router.delete(
+  "/users/:id",
+  AuthService.authenticateJWT,
+  AuthService.authorizeAdmin,
+  UserController.deleteSingleUser
+);
 
 export const UserRoutes = router;
